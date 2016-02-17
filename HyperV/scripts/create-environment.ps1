@@ -169,21 +169,21 @@ else
 }
 Add-Content "$env:APPDATA\pip\pip.ini" $pip_conf_content
 
-& easy_install -U pip
-& pip install -U setuptools
-& pip install -U pymi
-& pip install cffi
-& pip install numpy
-& pip install -U cliff==1.15.0
+Exec-EasyInstall -Upgrade pip
+Exec-PipInstall -Upgrade setuptools
+Exec-PipInstall -Upgrade pymi
+Exec-PipInstall cffi
+Exec-PipInstall numpy
+Exec-PipInstall -Upgrade cliff==1.15.0
 
 # Temporary fix for stable/liberty, forcing ryu==3.26
 if (($branchName.ToLower().CompareTo($('stable/liberty').ToLower()) -eq 0)) {
-& pip install ryu==3.26
+Exec-PipInstall ryu==3.26
 }
 
 # Temporary fix for stable/kilo, forcing testtools==1.9.0
 if (($branchName.ToLower().CompareTo($('stable/kilo').ToLower()) -eq 0)) {
-& pip install -U testtools==1.9.0
+Exec-PipInstall -Upgrade testtools==1.9.0
 }
 
 popd
@@ -214,21 +214,21 @@ function cherry_pick($commit) {
 
 ExecRetry {
     pushd C:\OpenStack\build\openstack\neutron
-    & pip install C:\OpenStack\build\openstack\neutron
+    Exec-PipInstall C:\OpenStack\build\openstack\neutron
     if ($LastExitCode) { Throw "Failed to install neutron from repo" }
     popd
 }
 
 ExecRetry {
     pushd C:\OpenStack\build\openstack\networking-hyperv
-    & pip install C:\OpenStack\build\openstack\networking-hyperv
+    Exec-PipInstall C:\OpenStack\build\openstack\networking-hyperv
     if ($LastExitCode) { Throw "Failed to install networking-hyperv from repo" }
     popd
 }
 
 ExecRetry {
     pushd C:\OpenStack\build\openstack\nova
-    & pip install C:\OpenStack\build\openstack\nova
+    Exec-PipInstall C:\OpenStack\build\openstack\nova
     if ($LastExitCode) { Throw "Failed to install nova fom repo" }
     popd
 }
